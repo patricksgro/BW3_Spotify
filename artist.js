@@ -4,9 +4,9 @@ const centerBody = document.querySelector("#middleCol");
 const containerCenterBody = document.createElement("div");
 containerCenterBody.style = "width: 100%; display: flex; justify-content: space-between;";
 const divPrefSong = document.createElement("div");
-divPrefSong.style = "width: 40%; max-height: 280px; margin: 20px;";
+divPrefSong.style = "width: 40%; max-height: 320px; margin: 20px;";
 const listContainer = document.createElement("div");
-listContainer.style = "width: 60%; max-height: 280px; margin: 20px; overflow-y: hidden;";
+listContainer.style = "width: 60%; max-height: 320px; margin: 20px; overflow-y: hidden;";
 const titleSongList = document.createElement("h3");
 titleSongList.textContent = "Populars";
 titleSongList.style = "color: white; margin: 0; padding-bottom: 10px; font-weight: bold;";
@@ -33,7 +33,7 @@ buttonShowOther.addEventListener("click", () => {
 });
 
 buttonShowLess.addEventListener("click", () => {
-    listContainer.style.maxHeight = "280px";
+    listContainer.style.maxHeight = "320px";
     buttonShowOther.style.display = "block";
     buttonShowLess.style.display = "none";
 });
@@ -131,7 +131,7 @@ async function searchSongs(artistData) {
             playList.push(e.preview)
         })
         console.log(playList)
-        createArtistPage(data.data, artistData, playList);
+        createArtistPage(data.data, artistData);
         prevBtn.addEventListener('click', () => {
             const currentIdx = parseInt(audio.getAttribute('data-song-idx')) - 1;
             console.log(typeof currentIdx)
@@ -173,6 +173,7 @@ function createArtistPage(songsData, artistData) {
                         padding: 2px 9px;font-size: 0.8em;font-weight: bold;" id="buttonFollow" onclick="followArtist()">FOLLOW</button></div>
         </div>`;
     centerBody.innerHTML += buttonraw;
+    console.log("endpoint",`https://striveschool-api.herokuapp.com/api/deezer/search?q=${artistData.name}`)
     const songElement = songsData.map((song) => {
         const songDuration = song.duration;
         const duration = calcDuration(songDuration);
@@ -180,7 +181,7 @@ function createArtistPage(songsData, artistData) {
         return `
         <li class="song" style = "width:100%; margin-top: 10px; margin-bottom: 10px;">
             <div class="song-info" style="display: flex; align-items: center; justify-content: start;">
-                <div id = "${idSong - 1}" class="imgSongList" style="background-image: url('${song.album.cover_small}'); background-size: cover; width: 45px; height: 45px; margin-right: 15px; display: flex; align-items: center; justify-content: center;" onclick = "contrPlayerSongs(${idSong - 1}, ${song.album.id})">
+                <div id = "${idSong - 1}" class="imgSongList" style="background-image: url('${song.album.cover_small}'); background-size: cover; width: 45px; height: 45px; margin-right: 15px; display: flex; align-items: center; justify-content: center;" onclick = "contrPlayerSongs(${idSong - 1}, ${artistData.name})">
                     <i class="bi bi-play-fill iImgSongList" style="color: white;color: transparent;"></i>
                 </div>
                 <p style="color: white; margin: 0; padding-right: 100px;width: 70%; font-size:0.9em">${song.title}</p>
@@ -207,17 +208,19 @@ function createArtistPage(songsData, artistData) {
     centerBody.append(containerCenterBody, buttonShowOther, buttonShowLess);
 }
 
-function contrPlayerSongs(idx, albumId) {
+function contrPlayerSongs(idx, artistName) {
     console.log(idx);
     if (audio.paused)
         setPlayer(playList, idx)
     loadFooter();
+    
     async function loadFooter() {
         try {
-            const result = await fetch(`https://striveschool-api.herokuapp.com/api/deezer/album/${albumId}`, {
+            const result = await fetch(`https://striveschool-api.herokuapp.com/api/deezer/search?q=${artistName}`, {
             })
             const data = await result.json()
-            setSongPreview(data, idx)
+            console.log(`https://striveschool-api.herokuapp.com/api/deezer/search?q=${artistName}`)
+        setSongPreview(data.data, idx)
 
         } catch (e) {
             console.log(e)
