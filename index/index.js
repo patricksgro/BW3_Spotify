@@ -8,7 +8,7 @@ const albumPage = '/album.html?id=';
 
 const firstArtist = 'sleep token';
 const suggestedArtistStrings = ['rammstein', 'red hot chili peppers', 'nirvana', 'gorillaz', 'billie eilish', 'linkin park'];
-const suggestedAlbumStrings = ['calcutta', 'lorna shore', 'arctic monkeys', 'ren'];
+const suggestedAlbumStrings = ['chapell roan', 'caparezza', 'tool', 'lorna shore', 'arctic monkeys', 'ren', 'paris paloma', 'la dispute'];
 
 const mainContent = document.querySelector('#mainContent');
 const firstSuggestionDiv = document.querySelector('#firstSuggestion');
