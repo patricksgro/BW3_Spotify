@@ -7,6 +7,7 @@ const divPrefSong = document.createElement("div");
 divPrefSong.style = "width: 40%; max-height: 280px; margin: 20px;";
 const listContainer = document.createElement("div");
 listContainer.style = "width: 60%; max-height: 280px; margin: 20px; overflow-y: hidden;";
+listContainer.id = 'listContainer'
 const titleSongList = document.createElement("h3");
 titleSongList.textContent = "Populars";
 titleSongList.style = "color: white; margin: 0; padding-bottom: 10px; font-weight: bold;";
@@ -33,7 +34,7 @@ buttonShowOther.addEventListener("click", () => {
 });
 
 buttonShowLess.addEventListener("click", () => {
-    listContainer.style.maxHeight = "280px";
+    listContainer.style.maxHeight = "250px";
     buttonShowOther.style.display = "block";
     buttonShowLess.style.display = "none";
 });
@@ -205,6 +206,12 @@ function createArtistPage(songsData, artistData) {
     listContainer.append(titleSongList, songsList);
     containerCenterBody.append(listContainer, divPrefSong);
     centerBody.append(containerCenterBody, buttonShowOther, buttonShowLess);
+
+    //conteiner trasparente per faciliare lo scroll
+    const containerEmpty = document.createElement('div')
+    containerEmpty.style.height = '230px'
+    containerEmpty.style.backgroundColor = 'trasparent'
+    middleCol.appendChild(containerEmpty)
 }
 
 function contrPlayerSongs(idx, albumId) {
