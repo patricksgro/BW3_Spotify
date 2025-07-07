@@ -96,7 +96,7 @@ footer {
     }
 
     #openRightCol {
-        bottom: 300px;
+        top: 150px;
     }
 
     #middleCol::-webkit-scrollbar-thumb {
