@@ -221,14 +221,12 @@ function contrPlayerSongs(idx, albumId) {
     if (audio.paused)
         setPlayer(playList, idx)
     loadFooter();
-    
     async function loadFooter() {
         try {
-            const result = await fetch(`https://striveschool-api.herokuapp.com/api/deezer/search?q=${artistName}`, {
+            const result = await fetch(`https://striveschool-api.herokuapp.com/api/deezer/album/${albumId}`, {
             })
             const data = await result.json()
-            console.log(`https://striveschool-api.herokuapp.com/api/deezer/search?q=${artistName}`)
-        setSongPreview(data.data, idx)
+            setSongPreview(data, idx)
 
         } catch (e) {
             console.log(e)
