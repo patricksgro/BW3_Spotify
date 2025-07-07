@@ -183,7 +183,7 @@ function createArtistPage(songsData, artistData) {
         return `
         <li class="song" style = "width:100%; margin-top: 10px; margin-bottom: 10px;">
             <div class="song-info" style="display: flex; align-items: center; justify-content: start;">
-                <div id = "${idSong - 1}" class="imgSongList" style="background-image: url('${song.album.cover_small}'); background-size: cover; width: 45px; height: 45px; margin-right: 15px; display: flex; align-items: center; justify-content: center;" onclick = "contrPlayerSongs(${idSong - 1}, ${artistData.name})">
+                <div id = "${idSong - 1}" class="imgSongList" style="background-image: url('${song.album.cover_small}'); background-size: cover; width: 45px; height: 45px; margin-right: 15px; display: flex; align-items: center; justify-content: center;" onclick = "contrPlayerSongs(${idSong - 1}, ${song.album.id})">
                     <i class="bi bi-play-fill iImgSongList" style="color: white;color: transparent;"></i>
                 </div>
                 <p style="color: white; margin: 0; padding-right: 100px;width: 70%; font-size:0.9em">${song.title}</p>
@@ -216,7 +216,7 @@ function createArtistPage(songsData, artistData) {
     middleCol.appendChild(containerEmpty)
 }
 
-function contrPlayerSongs(idx, artistName) {
+function contrPlayerSongs(idx, albumId) {
     console.log(idx);
     if (audio.paused)
         setPlayer(playList, idx)
@@ -238,7 +238,6 @@ function contrPlayerSongs(idx, artistName) {
     togglePlayPause();
     console.log(buttonPlay)
 }
-
 
 function followArtist() {
     const buttonFollow = document.querySelector('#buttonFollow');
